@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: brave-job
+server:
+  port: 9988
+logging:
+  level:
+    root: info
+  path: /Users/junzhang/data/applogs/job
+brave:
+  jobs:
+    -job: demo1
+    -job: demo2
+  switcher: on
+
+demo1:
+  switcher: on
+  cron: 0/30 * * * * ?
