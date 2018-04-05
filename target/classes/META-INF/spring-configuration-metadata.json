@@ -1,0 +1,56 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "name": "brave",
+      "type": "com.brave.util.JobUtil"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "defaultValue": "on",
+      "name": "brave.d-e-p-o-s-i-t-s-w-i-t-c-h-e-r",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "name": "brave.j-o-b-n-o-d-e-m-a-p",
+      "type": "java.util.concurrent.ConcurrentHashMap<java.lang.String,com.brave.vo.JobProperty>"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "name": "brave.jobs",
+      "type": "java.util.List<com.brave.vo.JobProperty>"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "defaultValue": "main-job",
+      "name": "brave.m-a-i-n-j-o-b-t-y-p-e",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "name": "brave.n-o-d-e",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "defaultValue": 8,
+      "name": "brave.poll",
+      "type": "java.util.concurrent.ExecutorService"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "name": "brave.port",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.brave.util.JobUtil",
+      "defaultValue": "worker-job",
+      "name": "brave.w-o-r-k-e-r-j-o-b-t-y-p-e",
+      "type": "java.lang.String"
+    }
+  ]
+}

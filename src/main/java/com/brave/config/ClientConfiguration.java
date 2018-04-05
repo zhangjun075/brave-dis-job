@@ -1,5 +1,6 @@
 package com.brave.config;
 
+import com.brave.job.JobFactory;
 import com.brave.util.IpUtil;
 import com.brave.util.JobUtil;
 import lombok.Data;
@@ -39,14 +40,14 @@ public class ClientConfiguration {
 
     public static ConcurrentHashMap<String,InterProcessMutex> mutexConcurrentHashMap;
 
-    @Value("${distribute.job.registcenter}")
+    @Value("${brave.register.center}")
     private String connect;
 
     @Value("${server.port}")
     private String port;
 
-    @Value("${brave.switcher}")
-    public String switcher;
+//    @Value("${switcher}")
+    public String switcherAll = "on";
 
 
     private static int BASE_SLEEP_TIME_MS = 2000;
@@ -56,6 +57,8 @@ public class ClientConfiguration {
 
 
     @Autowired JobUtil jobUtil;
+
+    @Autowired JobFactory jobFactory;
 
     /**
      * connect
@@ -128,7 +131,8 @@ public class ClientConfiguration {
      */
     @PostConstruct
     public void init(){
-        if(null != switcher && !"on".equals(switcher)){
+        log.info("框架开始运行......");
+        if(null != switcherAll && !"on".equals(switcherAll)){
             log.info("本台服务总开关关闭。。。。。");
             return;
         }
@@ -203,10 +207,15 @@ public class ClientConfiguration {
                 nodeCache.getListenable().addListener(() -> {
                         try{
                             log.info("path :{} data changed:{} ",new String(nodeCache.getCurrentData().getData()),new String(nodeCache.getCurrentData().getPath()));
+                            //获取根节点
+                            String root = "/" + new String(nodeCache.getCurrentData().getPath()).split("/")[1];
+                            String value = getNodeDate(root);
+                            log.info("the class name is {}",value);
+                            jobFactory.process(new String(nodeCache.getCurrentData().getData()),value);
 
 //                            jobWorker.work(new String(nodeCache.getCurrentData().getData()),new String(nodeCache.getCurrentData().getPath()));
                         }catch(Exception e){
-                            log.info("fuck you");
+                            log.info("fuck you：{}",e);
                         }
 
                     }
@@ -276,6 +285,20 @@ public class ClientConfiguration {
     public void close() {
         curatorFramework.close();
         mutexConcurrentHashMap = new ConcurrentHashMap<>();
+    }
+
+
+    /**
+     * @param path
+     * @return
+     */
+    public String getNodeDate(@NotNull String path) {
+        try {
+            return new String(curatorFramework.getData().forPath(path));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

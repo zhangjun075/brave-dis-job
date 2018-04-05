@@ -44,7 +44,7 @@ public class JobUtil {
 
     public static String NODE = null;
 
-    public List<JobProperty> jobs;
+    public List<JobProperty> jobs = new ArrayList<>();
 
     @PostConstruct
     public void init() {
