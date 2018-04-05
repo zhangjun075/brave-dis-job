@@ -60,6 +60,7 @@ public class JobUtil {
                 jobProperty.setRoot(root);
                 jobProperty.setSubNode(subNode);
                 jobProperty.setExecutor(IpUtil.getLocalIP().toString() + "-" + port);
+                jobProperty.setLog("/job/log/"+job);
                 JOB_NODE_MAP.putIfAbsent(job,jobProperty);
             });
         }

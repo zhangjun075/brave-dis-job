@@ -173,6 +173,7 @@ public class ClientConfiguration {
         }catch (Exception e) {
             log.info("子节点监听异常:{}",e);
         }
+//        registerJobLog();
     }
 
     /**
@@ -212,8 +213,6 @@ public class ClientConfiguration {
                             String value = getNodeDate(root);
                             log.info("the class name is {}",value);
                             jobFactory.process(new String(nodeCache.getCurrentData().getData()),value);
-
-//                            jobWorker.work(new String(nodeCache.getCurrentData().getData()),new String(nodeCache.getCurrentData().getPath()));
                         }catch(Exception e){
                             log.info("fuck you：{}",e);
                         }
@@ -227,6 +226,26 @@ public class ClientConfiguration {
 
     }
 
+    /**
+     * 写job日志，如果对应的job有日志在执行，那么就不做任何事。
+     * dispatcher和worker都会在对应的目录下面写临时节点，执行完毕后删除临时节点
+     * /job/log/xxx
+     */
+    public void registerJobLog() {
+        JobUtil.JOB_NODE_MAP.forEach((s, jobProperty) -> {
+            String logDir = jobProperty.getLog();
+            Stat stat;
+            try {
+                stat = curatorFramework.checkExists().forPath(logDir);
+                if(null == stat) {
+                    curatorFramework.create().withMode(CreateMode.PERSISTENT).forPath(logDir);
+                    log.info("{} path init success");
+                }
+            } catch (Exception e) {
+                log.info("{} path exception :{}",logDir,e);
+            }
+        });
+    }
 
     /**
      * 注册节点

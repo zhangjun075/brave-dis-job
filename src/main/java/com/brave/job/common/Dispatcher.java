@@ -1,10 +1,14 @@
 package com.brave.job.common;
 
 import com.brave.config.ClientConfiguration;
+import com.brave.util.IpUtil;
 import com.brave.util.JobUtil;
 import com.brave.vo.JobLogPojo;
+import com.brave.vo.JobProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -28,6 +32,21 @@ public class Dispatcher {
     }
 
     public void run(String jobName) {
+
+        //写日志
+        JobProperty jobProperty = JobUtil.JOB_NODE_MAP.get(jobName);
+        String exeDispatcherPath = jobProperty.getLock() + "/" + IpUtil.getLocalIP() + "-" + jobUtil.getPort() +"-dispatcher";
+
+        try {
+            List<String> childNodes = ClientConfiguration.curatorFramework.getChildren().forPath(jobProperty.getLock());
+            if (childNodes != null && childNodes.size() >0) {
+                log.info("已经有任务在执行，暂时不执行，等待下一次触发");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         log.info("{} dispatch worker begin to acquire lock.... ",jobName);
         InterProcessMutex mutex = ClientConfiguration.mutexConcurrentHashMap.get(jobName);
         if(mutex == null) {
@@ -44,6 +63,8 @@ public class Dispatcher {
                 jobId = jobUtil.addJobLog(jobLogPojo);
 
                 log.info("{} acquire this lock.",jobName);
+                ClientConfiguration.curatorFramework.create().withMode(CreateMode.EPHEMERAL).forPath(exeDispatcherPath);
+
                 //防止机器运行速度过快，导致在秒级别同时跑多次，所以会延迟10秒加载
                 TimeUnit.SECONDS.sleep(10);
                 //todo 记录日志表，时间点 、机器Ip、获取了、任务名称
@@ -56,6 +77,7 @@ public class Dispatcher {
             e.printStackTrace();
         }finally {
             try {
+                ClientConfiguration.curatorFramework.delete().forPath(exeDispatcherPath);
                 mutex.release();
                 log.info("release this lock...");
             } catch (Exception e) {

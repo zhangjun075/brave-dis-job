@@ -15,4 +15,5 @@ public class JobProperty {
     public String root;
     public String subNode;
     public String executor;
+    public String log;
 }
