@@ -1,9 +1,7 @@
 package com.brave.job;
 
 import com.brave.job.common.Dispatcher;
-import com.brave.util.JobUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,8 +12,6 @@ import java.util.List;
 @Slf4j
 @Component
 public class MainDispatcher extends Dispatcher {
-
-    @Autowired JobUtil jobUtil;
 
     @Value("${demo1.switcher}")
     public String switcher;

@@ -2,9 +2,7 @@ package com.brave.job;
 
 import com.brave.job.common.Worker;
 import com.brave.job.common.WorkerRegister;
-import com.brave.util.JobUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +18,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class MainWorker extends WorkerRegister implements Worker {
 
-
-    @Autowired JobUtil jobUtil;
     @Value("${server.port}")
     private String port;
-
-    private int id;
 
     public String jobName = "demo1";
 
