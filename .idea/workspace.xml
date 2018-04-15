@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f574088-dd1e-4947-b5f0-85ebbad80c65" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brave/job/MainDispatcher.java" afterPath="$PROJECT_DIR$/src/main/java/com/brave/job/MainDispatcher.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brave/job/MainWorker.java" afterPath="$PROJECT_DIR$/src/main/java/com/brave/job/MainWorker.java" />
-    </list>
+    <list default="true" id="5f574088-dd1e-4947-b5f0-85ebbad80c65" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,8 +59,8 @@
       <file leaf-file-name="MainWorker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/brave/job/MainWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="-205">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -650,12 +647,12 @@
       <updated>1521853272599</updated>
       <workItem from="1521853274520" duration="3020000" />
       <workItem from="1522512739799" duration="39302000" />
-      <workItem from="1523788646569" duration="998000" />
+      <workItem from="1523788646569" duration="1366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43320000" />
+    <option name="totallyTimeSpent" value="43688000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1409" height="877" extended-state="0" />
@@ -1020,8 +1017,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/brave/job/MainWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="-205">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
