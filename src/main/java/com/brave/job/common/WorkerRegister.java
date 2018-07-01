@@ -1,6 +1,7 @@
 package com.brave.job.common;
 
 import com.brave.config.ClientConfiguration;
+import com.brave.job.MainWorker;
 import com.brave.util.IpUtil;
 import com.brave.util.JobUtil;
 import com.brave.vo.JobProperty;
@@ -8,13 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.CreateMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author junzhang
  */
 @Slf4j
-public class WorkerRegister {
+public abstract class WorkerRegister {
 
     @Autowired ClientConfiguration clientConfiguration;
     @Autowired JobUtil jobUtil;
@@ -53,4 +58,45 @@ public class WorkerRegister {
             log.info("delete job {} log exeception:{}",exeDispatcherPath,e);
         }
     }
+
+    /**
+     *
+     * @param ids
+     * @return
+     */
+     public List<Integer> processItem(@NotNull String ids) {
+        List<Integer> result = new ArrayList<>();
+
+        String[] idr = ids.replace("[","").replace("]","").split(",");
+        if(idr.length == 0 || idr == null) {
+            return null;
+        }
+        Arrays.stream(idr).forEach(id -> {
+            result.add(Integer.parseInt(id));
+        });
+        return result;
+    }
+
+    public abstract void run(String ids);
+
+    /**
+     * @param ids
+     * @param jobName
+     */
+    public void work(String ids,String jobName) {
+        log.info("{} class name is {}",jobName,this.getClass().getName());
+        registerLog(jobName);
+        run(ids);
+        unRegisterLog(jobName);
+    }
+
+//    /**
+//     * 把worker现成注册上去。
+//     */
+//    @PostConstruct
+//    public void init() {
+//        String pkg = MainWorker.class.getName();
+//        register("/"+jobName,pkg);
+//    }
+
 }

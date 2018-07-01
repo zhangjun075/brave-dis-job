@@ -3,7 +3,6 @@ package com.brave.job;
 import com.brave.job.common.Worker;
 import com.brave.job.common.WorkerRegister;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,14 +15,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class MainWorker extends WorkerRegister implements Worker {
-
-    @Value("${server.port}")
-    private String port;
+public class MainWorker extends WorkerRegister {
 
     public String jobName = "demo1";
 
-    private void run(@NotNull String ids) {
+    @Override
+    public void run(@NotNull String ids) {
         try {
             TimeUnit.SECONDS.sleep(40);
         } catch (InterruptedException e) {
@@ -38,11 +35,11 @@ public class MainWorker extends WorkerRegister implements Worker {
     }
 
 
-    @Override public void work(String ids) {
-        registerLog(jobName);
-        run(ids);
-        unRegisterLog(jobName);
-    }
+//     public void work(String ids) {
+//        registerLog(jobName);
+//        run(ids);
+//        unRegisterLog(jobName);
+//    }
 
     /**
      * 把worker现成注册上去。

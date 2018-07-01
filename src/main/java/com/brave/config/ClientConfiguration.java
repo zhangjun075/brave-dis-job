@@ -209,10 +209,11 @@ public class ClientConfiguration {
                         try{
                             log.info("path :{} data changed:{} ",new String(nodeCache.getCurrentData().getData()),new String(nodeCache.getCurrentData().getPath()));
                             //获取根节点
-                            String root = "/" + new String(nodeCache.getCurrentData().getPath()).split("/")[1];
+                            String jobName = new String(nodeCache.getCurrentData().getPath()).split("/")[1];
+                            String root = "/" + jobName;
                             String value = getNodeDate(root);
                             log.info("the class name is {}",value);
-                            jobFactory.process(new String(nodeCache.getCurrentData().getData()),value);
+                            jobFactory.process(new String(nodeCache.getCurrentData().getData()),value,jobName);
                         }catch(Exception e){
                             log.info("fuck you：{}",e);
                         }

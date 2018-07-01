@@ -39,14 +39,14 @@ public class JobFactory implements ApplicationContextAware {
         return getApplicationContext().getBean(clazz);
     }
 
-    public void process(String data,String path) {
+    public void process(String data,String path,String jobName) {
         MainWorker mainWorker = null;
         try {
             mainWorker = (MainWorker) getBean(Class.forName(path));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        mainWorker.work(data);
+        mainWorker.work(data,jobName);
     }
 
 }
