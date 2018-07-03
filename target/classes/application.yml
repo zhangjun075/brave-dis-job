@@ -17,3 +17,7 @@ switcher: on
 demo1:
   switcher: on
   cron: 0/30 * * * * ?
+
+demo2:
+  switcher: on
+  cron: 0/40 * * * * ?

@@ -1,6 +1,7 @@
 package com.brave.job;
 
 
+import com.brave.job.common.WorkerRegister;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -40,13 +41,13 @@ public class JobFactory implements ApplicationContextAware {
     }
 
     public void process(String data,String path,String jobName) {
-        MainWorker mainWorker = null;
+        WorkerRegister workerRegister = null;
         try {
-            mainWorker = (MainWorker) getBean(Class.forName(path));
+            workerRegister = (WorkerRegister) getBean(Class.forName(path));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        mainWorker.work(data,jobName);
+        workerRegister.work(data,jobName);
     }
 
 }

@@ -99,4 +99,9 @@ public abstract class WorkerRegister {
 //        register("/"+jobName,pkg);
 //    }
 
+    public void init_1(String jobName) {
+        String pkg = this.getClass().getName();
+        register("/"+jobName,pkg);
+    }
+
 }

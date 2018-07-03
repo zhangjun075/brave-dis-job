@@ -1,8 +1,6 @@
 package com.brave.job;
 
-import com.brave.annotation.Job;
 import com.brave.annotation.JobName;
-import com.brave.job.common.Worker;
 import com.brave.job.common.WorkerRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,14 +10,12 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author junzhang
- */
-@Slf4j
-@Component
-public class MainWorker extends WorkerRegister {
 
-    @JobName(name = "demo1")
+@Component
+@Slf4j
+public class Demo2Worker extends WorkerRegister {
+
+    @JobName(name = "demo2")
     public String jobName;
 
     @Override
@@ -45,6 +41,4 @@ public class MainWorker extends WorkerRegister {
     public void init() {
         super.init_1(jobName);
     }
-
 }
-

@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-@Slf4j
 @Component
-public class MainDispatcher extends Dispatcher {
+@Slf4j
+public class Demo2Dispatcher extends Dispatcher {
 
-    @Value("${demo1.switcher}")
+    @Value("${demo2.switcher}")
     public String switcher;
 
-    @JobName(name = "demo1")
+    @JobName(name = "demo2")
     public String jobName;
 
 
 
-    @Scheduled(cron = "${demo1.cron}")
+    @Scheduled(cron = "${demo2.cron}")
     public void process() {
         if(switcher == null || "off".equals(switcher)){
             log.info("分布式任务调度关闭。");
@@ -38,7 +38,7 @@ public class MainDispatcher extends Dispatcher {
     @Override
     public void dispatchWork() {
         //获取id列表
-        List<Integer> ids = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> ids = Arrays.asList(100,101,102,104,105,106);
         writeWorkerData(jobName,ids);
     }
 }
